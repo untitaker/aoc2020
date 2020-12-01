@@ -30,7 +30,12 @@ pub fn main() !void {
     sort.sort(u64, integers.items, {}, sort_u64);
 
     for (integers.items) |value| {
-        const value2 = 2020 - value;
+        var value2: u64 = 2020;
+
+        if (@subWithOverflow(u64, value2, value, &value2)) {
+            continue;
+        }
+
         if (binarySearch(u64, value2, integers.items, {}, order_u64)) |_| {
             try stdout.print("{} * {} = {}\n", .{ value, value2, value * value2 });
         }
@@ -38,11 +43,16 @@ pub fn main() !void {
 
     for (integers.items) |value| {
         for (integers.items) |value2| {
-            if (value + value2 > 2020) {
+            var value3: u64 = 2020;
+
+            if (@subWithOverflow(u64, value3, value, &value3)) {
                 continue;
             }
 
-            const value3 = 2020 - value - value2;
+            if (@subWithOverflow(u64, value3, value2, &value3)) {
+                continue;
+            }
+
             if (binarySearch(u64, value3, integers.items, {}, order_u64)) |_| {
                 try stdout.print("{} * {} * {} = {}\n", .{ value, value2, value3, value * value2 * value3 });
             }
