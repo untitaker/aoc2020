@@ -35,6 +35,19 @@ pub fn main() !void {
             try stdout.print("{} * {} = {}\n", .{ value, value2, value * value2 });
         }
     }
+
+    for (integers.items) |value| {
+        for (integers.items) |value2| {
+            if (value + value2 > 2020) {
+                continue;
+            }
+
+            const value3 = 2020 - value - value2;
+            if (binarySearch(u64, value3, integers.items, {}, order_u64)) |_| {
+                try stdout.print("{} * {} * {} = {}\n", .{ value, value2, value3, value * value2 * value3 });
+            }
+        }
+    }
 }
 
 // no int parsing in stdlib (lol)
