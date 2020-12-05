@@ -1,10 +1,10 @@
 def seat_id(line):
     return int(
         line.strip()
-        .replace("F", "0")
-        .replace("B", "1")
-        .replace("R", "1")
-        .replace("L", "0"),
+            .replace("F", "0")
+            .replace("B", "1")
+            .replace("R", "1")
+            .replace("L", "0"),
         2
     )
 
