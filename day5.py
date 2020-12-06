@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 def seat_id(line):
     return int(
         line.strip()

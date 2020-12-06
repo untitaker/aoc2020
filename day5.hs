@@ -1,3 +1,4 @@
+#!/usr/bin/env runhaskell
 import System.IO
 import Control.Monad
 import Data.List (foldl', find, sort)

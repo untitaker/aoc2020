@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 def run(validators):
     defined_fields = set()
     valid_passports = 0
