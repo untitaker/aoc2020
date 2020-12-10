@@ -9,7 +9,7 @@ def run():
     count_3 = 1  # pre-counted: adapter -> phone
 
     # solution to part 2 -- we start out with 1 combination and multiply by 2
-    # every time we try to omit a jolt
+    # every time we try to omit an adapter
     combinations = 1
     jolt_1_len = 0  # current streak of 1-jolt differences
     a = 0
@@ -22,6 +22,8 @@ def run():
 
         elif jolt == 1:
             jolt_1_len += 1
+            count_1 += 1
+
             if 1 < jolt_1_len < 4:
                 # a length-n sequence of 1-jolt increments can generally have
                 # all but the last adapter omitted: 2 ^ (n-1)
@@ -35,7 +37,6 @@ def run():
                 # undo a bit of previous calculation
                 combinations /= 4
                 combinations *= 7
-            count_1 += 1
         else:
             assert False, (a, b)
 

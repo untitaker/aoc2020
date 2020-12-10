@@ -21,7 +21,7 @@ fn run(
     set_init: BTreeSet<char>,
     func: impl Fn(&BTreeSet<char>, &BTreeSet<char>) -> BTreeSet<char>,
 ) -> io::Result<u64> {
-    let f = BufReader::new(fs::File::open("../day6.input.txt")?);
+    let f = BufReader::new(fs::File::open("day6.input.txt")?);
     let mut answers = set_init.clone();
     let mut answers_count = 0u64;
 
