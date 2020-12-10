@@ -4,28 +4,22 @@ from collections import deque
 PREAMBLE_LEN = 25
 
 def run_part1(numbers):
-    # store last n numbers for lookup by value
-    last_n_set = set()
-    # store last n numbers for knowing in which order to truncate
-    last_n = deque()
+    for i, number in enumerate(numbers):
+        if i >= PREAMBLE_LEN:
+            last_n = set(numbers[i - PREAMBLE_LEN:i])
 
-    for number in numbers:
-        if len(last_n) > PREAMBLE_LEN:
-            to_remove = last_n.popleft()
-            last_n_set.remove(to_remove)
-            assert len(last_n) == PREAMBLE_LEN
+            # Storing last n numbers in a set is an oversimplification of the
+            # problem, make sure we at least crash explicitly if that's a wrong
+            # assumption. Seems to work so far though.
+            assert len(last_n) == PREAMBLE_LEN, "assumption: last n numbers are distinct"
 
-        if (
-            len(last_n) == PREAMBLE_LEN and
-            not any(number - number2 in last_n_set for number2 in last_n_set)
-        ):
-            return number
+            # We may not sum up a number with itself to reach `number`. If such
+            # a number exists in our set it would be half of `number`. Remove
+            # from set to make sure it does not count.
+            last_n.discard(number / 2.0)
 
-        last_n.append(number)
-        last_n_set.add(number)
-
-        # assumption about input: within the last n numbers no number appears twice
-        assert len(last_n_set) == len(last_n)
+            if not any(number - number2 in last_n for number2 in last_n):
+                return number
 
 with open("day9.input.txt") as f:
     numbers = list(int(line.strip()) for line in f)
